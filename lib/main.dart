@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sil/cubit/iller_cubit.dart';
+import 'package:sil/cubit/toplama_cubit.dart';
+import 'package:sil/page/anasayfa.dart';
 
 void main() {
   runApp(const MyApp());
@@ -6,30 +10,15 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Material App',
-      home: Deneem(),
-    );
-  }
-}
-
-class Deneem extends StatefulWidget {
-  const Deneem({super.key});
-
-  @override
-  State<Deneem> createState() => _DeneemState();
-}
-
-class _DeneemState extends State<Deneem> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: const Center(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => HesaplaCubit(0)),
+        BlocProvider(create: (context) => IllerCubit()),
+      ],
+      child: MaterialApp(title: 'Material App', home: AnaSayfa()),
     );
   }
 }
